@@ -1,0 +1,40 @@
+@name holo noot noot horn bodygroup horn! - mr.dvd edit
+@inputs Noot
+@outputs 
+@persist [E]:entity [KnuckleModel,UncoupledSound,CoupledSound]:string
+@trigger Noot
+#########################################################################
+#this crap was edited with az knuckle couler e2 cuz i suck at codeing     #
+#########################################################################
+    
+E = entity()
+
+Hornmodel = "models/zexciv_train_stuff/horns/bells/nathan_p_bells.mdl"
+Noothornstart = "horns/noot_horn_loop.wav"
+Noothornstop = "horns/noot_horn_end.wav"
+
+    A = 1
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,Hornmodel)
+    holoScale(A,vec(1,1,1))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(0,0,0)))
+    holoColor(A,vec(255,93,0))
+    holoEntity(A):setSubMaterial(1,"")
+    holoAlpha(A,255)
+
+    holoBodygroup(1,1,Noot)
+    
+    if(changed(Noot == 1)){
+    E:soundPlay("uncouple",0,Noothornstart)
+    soundStop("couple",0)
+    } 
+    if(changed(Noot == 0) & Noot == 0){
+    E:soundPlay("couple",0,Noothornstop)
+    soundStop("uncouple",0)
+    }
+    
+    Noot
+    
+#

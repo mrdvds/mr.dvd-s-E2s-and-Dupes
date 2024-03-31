@@ -1,0 +1,20 @@
+@name mr.dvd's hand rails frot
+@inputs 
+@outputs 
+@persist 
+@trigger 
+#@model models/gsgtrainprops/parts/grabs_n_ladders/grab_iron.mdl
+E = entity()
+ 
+
+
+
+
+    A = 1
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,"models/gsgtrainprops/parts/grabs_n_ladders/grab_iron.mdl")
+    holoScale(A,vec(1,1,1))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(0,0,0)))
+    holoColor(A,vec(255))
