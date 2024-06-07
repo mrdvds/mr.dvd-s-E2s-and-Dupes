@@ -1,0 +1,18 @@
+@name ps-4 trailing truck holo - made by mr.dvd
+@inputs 
+@outputs 
+@persist 
+@trigger 
+@model models/unionssteamkits/ps-4_trailing_truck.mdl
+E = entity()
+ 
+
+    A = 1
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,"models/bobsters_trains_2/wheels/standard/double_60.mdl")
+    holoScale(A,vec(1,1,1))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(1,0,-2)))
+    holoColor(A,vec(255))
+    holoMaterial(A,"unionssteamkits/train_metal5")

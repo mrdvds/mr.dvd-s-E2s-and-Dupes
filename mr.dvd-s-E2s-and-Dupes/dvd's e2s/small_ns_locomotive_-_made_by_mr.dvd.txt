@@ -1,0 +1,53 @@
+@name small ns locomotive - made by mr.dvd
+@inputs 
+@outputs 
+@persist Turning Peep 
+@trigger 
+@model models/sprops/cuboids/height12/size_1/cube_12x30x12.mdl
+##############################################
+# made my mr.dvd                             #
+# idea: lemoncake                            #
+#                                            #
+#                                            #
+##############################################
+W = 4
+S = 3
+D = 2
+A = 1
+holoCreate(W) #bogey
+holoCreate(S) #bogey
+holoCreate(D)
+holoCreate(A)
+holoScale(A,vec(0.04,0.08,0.065))
+holoScale(W,vec(0.04,0.08,0.065)) #bogey
+holoScale(S,vec(0.04,0.08,0.065)) #bogey
+holoScale(D,vec(1,0.6,0.5))
+holoPos(D,entity():toWorld(vec(2,0,4.4)))
+holoPos(W,entity():toWorld(vec(-7,0,-1))) #bogey
+holoPos(S,entity():toWorld(vec(8,0,-1))) #bogey
+holoModel(A,"models/gsgtrainprops/trains/propper/emd_gp38_hh.mdl")
+holoModel(W,"models/gsgtrainprops/parts/trucks/blomberg.mdl")
+holoModel(S,"models/gsgtrainprops/parts/trucks/blomberg.mdl")
+holoColor(A,vec(31,31,31))
+holoColor(A,vec(31))
+holoMaterial(D,"cubics_pack/logos/real/ns/ns_new")
+
+
+
+#Bobbing
+interval(170)
+holoPos(A,entity():toWorld(vec(0,0,0)))
+holoAng(A, entity():toWorld(ang(0,0,Turning)) )
+if(Peep==0){Turning+=10}
+if(Peep==1){Turning-=10}
+if(Turning>=20){Peep=1}
+if(Turning<=-20){Peep=0}
+#Bobbing 2
+interval(170)
+holoPos(D,entity():toWorld(vec(2,0,4.4)))
+holoAng(D, entity():toWorld(ang(0,0,Turning)) )
+if(Peep==0){Turning+=10}
+if(Peep==1){Turning-=10}
+if(Turning>=20){Peep=1}
+if(Turning<=-20){Peep=0}
+

@@ -1,0 +1,95 @@
+@name Electric Locomotive Control panel - mr.dvd edit
+@inputs Emergency_Engine_Shutdown Isolation Engine_Start Engine_Shutdown WheelSlip Primed1
+@outputs 
+@persist 
+@trigger 
+@model models/sprops/rectangles/size_2_5/rect_18x24x3.mdl
+interval(100)
+E=entity()
+E:setMaterial("models/proppertextures/cabmetal_gray")
+
+A=1
+holoCreate(A)
+holoModel(A,"models/jazzie/trains/locomotives/emd/cab/gallon_gauge_4000.mdl")
+holoPos(A,E:toWorld(vec(-8,-3,2)))
+holoAng(A,E:toWorld(ang(0,180,0)))
+holoEntity(A):setSubMaterial(1,"jazzie/trains/dm8/dm8_battery_volt")
+holoParent(A,E)
+A=8
+holoCreate(A)
+holoModel(A,"models/jazzie/models/ba/gauge_pointer01.mdl")
+holoPos(A,E:toWorld(vec(-8,-3,2)))
+holoAng(A,E:toWorld(ang(0,10,0)))
+holoParent(A,E)
+A=2
+holoCreate(A)
+holoModel(A,"models/jazzie/trains/locomotives/emd/cab/control_panel_switch1.mdl")
+holoPos(A,E:toWorld(vec(8,-4.24,1)))
+holoAng(A,E:toWorld(ang(0,0,0)))
+holoEntity(A):setSubMaterial(1,"")
+holoScale(A,vec(1.5))
+holoParent(A,E)
+A=3
+holoCreate(A)
+holoModel(A,"models/jazzie/trains/locomotives/emd/cab/control_stand_gp7_dc_indicator_off.mdl")
+holoPos(A,E:toWorld(vec(-8,5.5,-2)))
+holoAng(A,E:toWorld(ang(0,0,-90)))
+holoScale(A,vec(1))
+holoParent(A,E)
+A=4
+holoCreate(A)
+holoModel(A,"models/jazzie/trains/locomotives/emd/cab/control_stand_gp7_ws_indicator_off.mdl")
+holoPos(A,E:toWorld(vec(-2,5.5,-2)))
+holoAng(A,E:toWorld(ang(0,0,-90)))
+holoScale(A,vec(1))
+holoParent(A,E)
+A=5
+holoCreate(A)
+holoModel(A,"models/jazzie/trains/locomotives/emd/cab/control_stand_gp7_dc_indicator_off.mdl")
+holoPos(A,E:toWorld(vec(-12.25,5.5,-2)))
+holoAng(A,E:toWorld(ang(0,0,-90)))
+holoScale(A,vec(1))
+holoParent(A,E)
+A=6 
+holoCreate(A)
+holoModel(A,"plane")
+holoPos(A,entity():toWorld(vec(8,-4,1.6))) 
+holoAng(A, entity():toWorld(ang(0,90,0))) 
+holoParent(A,entity()) 
+holoMaterial(A,"jazzie/trains/eng_start_switch")
+holoColor(A,vec(255))
+holoScale(A,vec(0.5))
+A=7 
+holoCreate(A)
+holoModel(A,"models/magtrainslocos/rotaryswitches/headlight_emd.mdl")
+holoPos(A,entity():toWorld(vec(9,5,1.4))) 
+holoAng(A, entity():toWorld(ang(0,90,0))) 
+holoParent(A,entity()) 
+holoEntity(A):setSubMaterial(1,"jazzie/trains/grey_metal")
+holoColor(A,vec(255))
+holoScale(A,vec(1))
+
+if(Emergency_Engine_Shutdown == 1){
+holoBodygroup(2,1,1)
+}
+if(Emergency_Engine_Shutdown == 0){
+holoBodygroup(2,1,0)
+}
+if(Isolation == 1){
+holoBodygroup(7,1,0)
+}
+if(Isolation == 0){
+holoBodygroup(7,1,2)
+}
+if(Primed1 == 1){
+holoEntity(3):setSubMaterial(1,"jazzie/trains/red_light_on")
+}
+if(Primed1 == 0){
+holoEntity(3):setSubMaterial(1,"jazzie/trains/red_light_off")
+}
+if(WheelSlip== 1){
+holoEntity(4):setSubMaterial(1,"jazzie/trains/red_light_on")
+}
+if(WheelSlip== 0){
+holoEntity(4):setSubMaterial(1,"jazzie/trains/red_light_off")
+}
