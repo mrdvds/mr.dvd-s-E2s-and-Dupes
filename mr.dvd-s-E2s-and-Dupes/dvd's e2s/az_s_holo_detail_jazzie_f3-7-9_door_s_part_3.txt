@@ -1,0 +1,58 @@
+@name AZ'S Holo Detail Jazzie F3-7-9 Door's Part 3
+@inputs FrontRightDoor:entity FrontRightDoorOpen
+@outputs FrontRightDoorOpen_Out Random_Ouput_Enabled
+@persist A 
+#@model models/maxofs2d/lamp_flashlight.mdl
+if(first()||dupefinished()){
+    
+#Created by AZ2933
+#edited by mr.dvd
+#Not Sure If this Is Gonna Have A V2 Or Not (This Will Be Updated If I Know My Answer
+#Enable On Of These To Add The Holo Models! \/
+#Part 1/Right Door Holo E2 Part 1
+
+F_Or_B1 = (-63.54) #Forwards Or Backwards?
+L_Or_R1 = (221.0) #Left Or Right?(Go To The Front, Look At The Front Way And Look At The Left,- 
+#-Go Back And Go To The Door To Know Where It Goes.)
+Height1 = (51)  #How High Does The Door Go?
+
+A=1
+holoCreate(A)
+holoPos(A,FrontRightDoor:toWorld(vec(F_Or_B1,L_Or_R1,Height1)))
+holoParent(A,FrontRightDoor)
+holoModel(A, "models/jazzie/trains/locomotives/emd/f3-7-9/f3-7-9_door01.mdl")
+holoScale(A,vec(1))
+holoMaterial(A,"")
+#entity():setSubMaterial(1,"")
+#entity():setBodygroup(1,0)
+#holoAng(A,Entity:toWorld(ang(0.00,180.00,0.00)))
+
+Random_Output_Enabled=1
+
+}
+
+########################ANGLES########################
+
+if(FrontRightDoorOpen < 1)
+{
+    holoAng(1,entity():toWorld(ang(0.00,-270.00,-90)))
+
+}
+else {
+    holoAng(1,entity():toWorld(ang(-99.00,270.00,90)))
+
+}
+
+########################SOUNDS########################
+
+if(FrontRightDoorOpen){
+soundPlay(0,0,"_jazzlok/switches/cabinet_door02.wav")
+}else{
+soundPlay(0,0,"_jazzlok/switches/cabinet_shut.wav")
+}
+
+
+
+
+
+
