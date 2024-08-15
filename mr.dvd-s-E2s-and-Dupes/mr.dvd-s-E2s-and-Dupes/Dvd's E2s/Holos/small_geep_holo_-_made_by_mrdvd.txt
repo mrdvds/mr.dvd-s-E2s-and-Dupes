@@ -1,0 +1,21 @@
+@name small geep holo - made by mrdvd
+@inputs 
+@outputs 
+@persist 
+@trigger 
+@model models/sprops/cuboids/height12/size_1/cube_12x12x12.mdl
+E = entity()
+ 
+
+
+
+
+    A = 1
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,"models/gsgtrainprops/sd40/sd40_up.mdl")
+    holoScale(A,vec(0.2,0.7,0.7))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(0,0,0)))
+    holoColor(A,vec(255))
+    holoBodygroup(0,1,1)

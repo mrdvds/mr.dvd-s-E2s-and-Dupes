@@ -1,0 +1,644 @@
+@name Blomberg Bogie Rsg [Edited By Mr.dvd]
+@inputs [Bogie Locomotive]:entity BogieColor:vector [BOGIE_PLUG BOGIE_PLUG2 LOCOMOTIVE_DATA]:array
+@outputs CONTROL_STAND_OUTPUT2:array TM_Amps Brake BEQ_Pressure
+@persist Sander_C Sander_B Spark Roll Rolling Speed Force Motor_AmpSpike SlipCount BrakeFX Stop Dump VelL
+@persist Traction_Motor_Current Traction_Effort_lbs Sparky Timer CountFail Power_Use Hum TM_Amps GND_Relay BrakeForce
+@persist Angle Angle2 Total Sound
+@trigger none
+
+Traction_Effort_lbs = LOCOMOTIVE_DATA[1,number] 
+Engine_HP = LOCOMOTIVE_DATA[2,number] 
+Dynamics_True = LOCOMOTIVE_DATA[6,number] 
+
+Notch = BOGIE_PLUG[1,number] 
+BrakeLever = BOGIE_PLUG[2,number] 
+Reverser = BOGIE_PLUG[3,number] 
+Transition = BOGIE_PLUG[4,number] 
+Locomotive_Type = BOGIE_PLUG[5,number] 
+Power = BOGIE_PLUG[6,number] 
+BEQ_Pressure = BOGIE_PLUG[7,number] 
+Reservoir = BOGIE_PLUG[8,number]
+TotalMass = BOGIE_PLUG[9,number]
+
+GND_Reset = BOGIE_PLUG2[1,number] 
+Sander = BOGIE_PLUG2[2,number] 
+
+CONTROL_STAND_OUTPUT2 = array(
+TM_Amps,
+GND_Relay
+)
+
+Bogie:setColor(BogieColor)
+
+if(first() | dupefinished())
+{
+    timer("spawn",100)
+}
+
+if(clk("spawn"))
+{        
+    A = 2
+    holoCreate(A)
+    holoParent(A,Bogie)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/wheelset_40.mdl")
+    holoScale(A,vec(0.67,1,1))
+    holoPos(A,Bogie:toWorld(vec(0,55,-9)))
+    holoAng(A,Bogie:toWorld(ang(0,0,0)))
+    
+    A = 3
+    holoCreate(A)
+    holoParent(A,Bogie)
+    holoScale(A,vec(0.67,1,1))
+    holoModel(A, "models/jazzie/trains/locomotives/emd/wheelset_40.mdl")
+    holoPos(A,Bogie:toWorld(vec(0,-55,-9)))
+    holoAng(A,Bogie:toWorld(ang(0,0,0)))
+}
+
+Angle2 = Locomotive:angles():yaw()   
+
+Angle = Bogie:angles():yaw()   
+
+Total = round(Angle - Angle2)
+
+Speed = Bogie:vel():length()  
+    
+if((Total < -2 & Total > -358) | Total > 2)
+{
+    Sound = 1
+}
+elseif(Total == 0 | Total < 1 | Total > -1 | Total < -359)
+{
+    Sound = 0
+}
+
+soundVolume("noise",(Speed / 600) * 0.5)
+
+
+if(changed(Sound) & Sound)
+{
+    
+    soundPlay("noise",0,"_jazzlok/brakes/flange_loop.wav")
+    
+}
+
+if(!Sound)
+{
+    soundVolume("noise",0)
+    soundStop("noise")
+    }
+
+if(changed(Sound) & !Sound)
+{
+    soundPlay("noise2",0,"_jazzlok/brakes/flange_stop.wav")
+    soundStop("noise2",1.5)
+    }
+soundVolume("noise2",(Speed / 600) * 0.5)    
+        
+soundPitch("noise",100 + (Speed / 200))
+soundPitch("noise2",100 + (Speed / 200))
+
+#=========================================================================================================================
+# Brake Pressure Controlled sounds
+#========================================================================================================================= 
+
+    # Brake
+    Brake_Release = "_jazzlok/brakes/air_brake_release_1.wav"
+    Brake_Release2 = "_jazzlok/brakes/air_brake_hiss_1.wav"
+   
+    Brake_Apply =  "_jazzlok/brakes/air_brake_release_full.wav"
+    Brake_Apply2 = "_jazzlok/brakes/air_brake_apply.wav"    
+    
+    Brake_Layer1 = "_jazzlok/brakes/brake_whine_heavy.wav"
+    Brake_Layer2 = "_jazzlok/brakes/brake_whine_mid.wav"
+    Brake_Layer3 = "_jazzlok/brakes/brake_whine_light.wav"
+
+
+    # Rolling
+    Rolling_Layer1 = ""
+    Rolling_Layer2 = "gsgtrainsounds/misc/train_wheels_welded_loop.wav"
+    Rolling_Layer3 = "gsgtrainsounds/wheels/emd_dr77_traction.wav" 
+   
+#========================================================================================================================= 
+
+if(changed(Rolling) & Rolling)
+{    
+    Bogie:soundPlay("Rolling_Layer1",0,Rolling_Layer1)
+    Bogie:soundPlay("Rolling_Layer2",0,Rolling_Layer2)
+    Bogie:soundPlay("Rolling_Layer3",0,Rolling_Layer3)
+}
+
+if(BrakeLever== 5 & Reservoir > 60)
+{
+    Dump = 1
+}
+else
+{
+    Dump = 0
+}
+
+if(changed(Dump) & Dump)
+{    
+    Bogie:soundPlay("dump",0,"gsgtrainsounds/misc/airbrakes/air_dump.wav")
+    Bogie:soundPlay("dump2",0,"gsgtrainsounds/misc/airbrakes/air_train_apply.wav")
+    soundPitch("dump",70) 
+    soundPitch("dump2",110) 
+    
+    soundStop("dump",1.75)   
+    soundStop("dump2",3)     
+}
+elseif(!Dump)
+{
+    soundStop("dump",0.5)
+    soundStop("dump2",0.5)
+}
+
+
+
+interval(100)
+
+soundVolume("Rolling_Layer1",(Speed / 50))
+soundVolume("Rolling_Layer2",(Speed / 600))
+soundVolume("Rolling_Layer3",(Speed / 600))
+    
+soundPitch("Rolling_Layer1",30 + Speed / 100)
+soundPitch("Rolling_Layer2",60 + Speed / 200)
+soundPitch("Rolling_Layer3",10 + Speed / 10)
+
+if(Speed > 10)
+{
+    Rolling = 1
+}
+else
+{
+    Rolling = 0
+    soundStop("Rolling_Layer1")
+    soundStop("Rolling_Layer2")
+    soundStop("Rolling_Layer3")
+}  
+     
+    
+if((changed(BrakeFX) & BrakeFX) & Speed > 100)
+{
+    soundPlay("stop",0,                       
+        select(    
+            randint(1,4),
+            "_jazzlok/brakes/brake_whine_shot01.wav",
+            "_jazzlok/brakes/brake_whine_shot02.wav",
+            "_jazzlok/brakes/brake_whine_shot03.wav",
+            "_jazzlok/brakes/brake_whine_shot04.wav"
+            ) 
+        )
+        
+    soundPitch("stop", select(randint(1,4),95,90,100,110))
+    soundStop("stop",1.5) 
+} 
+
+if(changed(BrakeFX) & BrakeFX)
+{
+    Bogie:soundPlay("Brake_Layer1",0,Brake_Layer1)
+    Bogie:soundPlay("Brake_Layer2",0,Brake_Layer2)    
+
+    Bogie:soundPlay("Brake_Apply5",0,Brake_Apply2)                       
+
+            
+    soundPitch("Brake_Apply5", select(randint(1,4),85,90,100,95))
+    soundVolume("Brake_Apply5",0.75)
+    soundStop("Brake_Apply5",4)               
+}
+
+if(changed(BrakeFX) & !BrakeFX)
+{
+    Bogie:soundPlay("Brake_Release5",0,Brake_Release2)                      
+        
+    soundPitch("Brake_Release5", select(randint(1,4),85,90,100,95))
+    soundVolume("Brake_Release5",0.5)    
+    soundStop("Brake_Release5",2.2)      
+}
+
+if(BEQ_Pressure > 1)
+{
+    BrakeFX = 1  
+    
+    soundVolume("stop",(BEQ_Pressure / 65) * (Speed / 300)) 
+    
+    soundVolume("Brake_Layer1",(BEQ_Pressure / 65) * (Speed / 1000))  
+    soundPitch("Brake_Layer1",70 + (Speed / 100))
+                 
+    if(Speed < 150)
+    {
+        soundPitch("Brake_Layer2",60 + (Speed / 11.5))
+        soundVolume("Brake_Layer2",(BEQ_Pressure / 65) * (Speed / 80)) 
+        
+        soundPitch("Brake_Layer3",90 + (Speed / 100))
+        soundVolume("Brake_Layer3",((BEQ_Pressure / 65) / (Speed / 600))) 
+    }
+    else
+    {
+            
+        soundPitch("Brake_Layer3",0)
+        soundVolume("Brake_Layer3",0) 
+        
+        soundPitch("Brake_Layer2",70 + (Speed / 100))
+        soundVolume("Brake_Layer2",((BEQ_Pressure / 65) / (Speed / 600)))
+    }
+    
+         
+    if(Speed < 20)
+    {
+        soundVolume("Brake_Layer3",0)
+        soundVolume("Brake_Layer2",0)
+        soundVolume("Brake_Layer1",0)
+        Stop = 1   
+    }
+    else
+    {
+        Stop = 0
+    }
+
+}
+else
+{
+    BrakeFX = 0
+    soundStop("Brake_Layer1")
+    soundStop("Brake_Layer2")
+    soundStop("Brake_Layer3")
+    soundStop("Brake_Release")
+}
+
+if(changed(Spark) & Spark)
+{    
+    soundPlay("Spark",0,"_jazzlok/switches/buzzer_01.wav")
+    soundPlay("Spark2",0,"ambient/energy/zap7.wav")  
+
+    soundStop("Spark",3)
+    soundStop("Spark2",1)
+}
+
+if(changed(Sander) & Sander)
+{    
+    soundPlay("sand",0,"gsgtrainsounds/misc/airbrakes/air_sander_loop.wav")
+}
+
+if(changed(Sander) & !Sander)
+{    
+    soundPlay("sand",0,"gsgtrainsounds/misc/airbrakes/air_sander_end.wav")
+}
+
+       
+    if(Transition == 0)
+    {
+        Motor_AmpSpike = 0
+        Traction_Motor_Current = 0
+    }   
+    elseif(Notch & Transition == 1)
+    {
+        Torque = (((Power_Use * Engine_HP * 35) - ((Speed * Engine_HP * 4.5)))) * (Traction_Effort_lbs / 65000) 
+        
+        Force = (Force + ( Torque - Force ) /  max( 50, 0 ))
+        
+        Motor_AmpSpike = Motor_AmpSpike + (((Torque / 2600) - Speed) -  Motor_AmpSpike) /  max( 10, 0 ) 
+             
+        Traction_Motor_Current = ((Torque / 600) - (Speed)) - Motor_AmpSpike                         
+    }       
+    elseif(Notch & Transition == 2)
+    {
+        Torque = (((Power_Use  * Engine_HP * 18) - ((Speed * Engine_HP)))) * (Traction_Effort_lbs / 65000) 
+        
+        Force = (Force + ( Torque - Force ) /  max( 100, 0 ))
+        
+        Motor_AmpSpike = Motor_AmpSpike + (((Torque / 1500) - Speed) -  Motor_AmpSpike) /  max( 10, 0 ) 
+             
+        Traction_Motor_Current = ((Torque / 500) - (Speed)) - Motor_AmpSpike                         
+    }      
+    elseif(Notch & Transition == 3)
+    {
+        Torque = (((Power_Use  * Engine_HP * 10) - ((Speed * Engine_HP / 3)))) * (Traction_Effort_lbs / 65000) 
+        
+        Force = (Force + ( Torque - Force ) /  max( 150, 0 ))
+        
+        Motor_AmpSpike = Motor_AmpSpike + (((Torque / 1400) - Speed) -  Motor_AmpSpike) /  max( 10, 0 ) 
+             
+        Traction_Motor_Current = ((Torque / 600) - (Speed)) - Motor_AmpSpike                         
+    }    
+    elseif(Notch & Transition == 4)
+    {
+        Torque = (((Power_Use  * Engine_HP * 7.5) - ((Speed * Engine_HP / 6)))) * (Traction_Effort_lbs / 65000) 
+        
+        Force = (Force + ( Torque - Force ) /  max( 200, 0 ))
+        
+        Motor_AmpSpike = Motor_AmpSpike + (((Torque / 1400) - Speed) -  Motor_AmpSpike) /  max( 10, 0 ) 
+             
+        Traction_Motor_Current = ((Torque / 500) - (Speed)) - Motor_AmpSpike                         
+    }                                                        
+    elseif(Transition <= -1 & Dynamics_True)
+    {
+        Dynamic = Speed * (Notch  * 200) * (Traction_Effort_lbs / 65000) 
+        Traction_Motor_Current = Traction_Motor_Current  + ((Dynamic / 900) -  Traction_Motor_Current) /  max( 10, 0 ) 
+    }
+    elseif(!Notch)
+    {
+        Traction_Motor_Current = 0
+    }
+
+        
+    if(Traction_Motor_Current < 1)
+    {
+        Traction_Motor_Current = 0
+        Force = 0
+    }                          
+            
+    if(VelL < 0)
+    {
+        if(BEQ_Pressure > 10)
+        {
+            Brake = -(TotalMass / (1 + Speed * 6)) * (BEQ_Pressure * 80)
+        }
+        else
+        {
+            Brake = 1
+        }
+
+        if(BEQ_Pressure > 60 & BrakeLever == 5)
+        {
+            Brake = -(TotalMass / (1 + Speed * 2)) * (BEQ_Pressure * 80)
+        }  
+    } 
+    elseif(VelL > 0)
+    {
+        if(BEQ_Pressure > 10)
+        {
+            Brake = (TotalMass / (1 + Speed * 6)) * (BEQ_Pressure * 80)
+        }
+        else
+        {
+            Brake = 1
+        }
+        
+        if(BEQ_Pressure > 60 & BrakeLever == 5)
+        {
+            Brake = (TotalMass / (1 + Speed * 2)) * (BEQ_Pressure *  80)
+        }    
+    }
+                    
+    if(Speed < 20)
+    {
+        Brake = 1
+    }
+
+    if(Brake > 2000000)
+    {
+        BrakeForce = 2000000
+    }
+    elseif(Brake < -2000000)
+    {
+        BrakeForce = -2000000
+    }   
+    else
+    {
+        BrakeForce = Brake
+    }      
+         
+    Speed = Bogie:vel():length()  
+            
+    if(Reverser == 1)
+    {
+        if(Transition >= 1) 
+        {       
+            Throttle = Force
+            Limit = 1
+        }
+                        
+        if(Transition <= -1) 
+        {       
+            Throttle = -Dynamic
+            Limit = 1
+        }
+        if(Transition == 0) 
+        {
+            Limit = -Torque
+            Throttle = 0
+            Force = 0
+        }                            
+    }                    
+    elseif(Reverser == 0)
+    {
+        Limit = -Torque
+        Throttle = 0
+        Force = 0
+    }
+        
+    if(Reverser == -1)
+    {        
+        if(Transition >= 1) 
+        {       
+            Throttle = -Force 
+            Limit = 1
+        }
+            
+        if(Transition <= -1) 
+        {       
+            Throttle = Dynamic
+            Limit = 1
+        }
+            
+        if(Transition  == 0) 
+        {
+            Limit = -Torque
+            Throttle = 0
+            Force = 0
+        }                          
+    }           
+    
+    if(Traction_Motor_Current > (Speed * 10))
+    {
+        SlipCount++
+        if(SlipCount > 120)
+        {
+            Slip_Warn = 1
+            WheelSlip = 0.25
+            SlipCount = 121
+        }
+    }       
+    else
+    {
+        SlipCount = 0
+        WheelSlip = 1
+        Slip_Warn = 0
+    }  
+
+if(Traction_Motor_Current > 400) 
+{
+    Hum = 1
+}
+else
+{
+    CountFail = 0
+    Hum = 0
+}
+
+if(Traction_Motor_Current > 950) 
+{
+    CountFail+= 0.01
+    
+    if(CountFail >= 900)
+    {
+        CountFail = 900
+        Sparky = 2
+    }
+}
+else
+{
+    CountFail = 0
+}
+
+if(Traction_Motor_Current > 1000) 
+{
+    CountFail+= 0.01
+    
+    if(CountFail >= 450)
+    {
+        CountFail = 450
+        Sparky = random()
+    }
+}
+
+if(Traction_Motor_Current > 1100) 
+{
+    CountFail+= 0.01
+    
+    if(CountFail >= 112)
+    {
+        CountFail = 112
+        Sparky = random()
+    }
+}
+
+if(Traction_Motor_Current > 1200) 
+{
+    CountFail+= 0.01
+    
+    if(CountFail >= 28)
+    {
+        CountFail = 28
+        Sparky = random()
+    }    
+}
+
+if(Traction_Motor_Current > 1300) 
+{
+    CountFail+= 0.01
+    
+    if(CountFail >= 8)
+    {        
+        CountFail = 8
+        Sparky = random()
+    }
+}
+
+if(Traction_Motor_Current > 1500) 
+{
+    Sparky = random()
+    
+}
+
+if(GND_Relay == 0)
+{
+    Sparky = 0
+    Power_Use = 0
+}
+else
+{
+    Power_Use = Power
+}
+
+if(GND_Reset | first())
+{
+    GND_Relay = 1
+}
+    
+if(Sparky)
+{
+    timer("sparkz",2000)    
+    
+    if(clk("sparkz"))
+    {   
+        GND_Relay = 0
+    }
+}
+
+if(changed(Sparky))
+{
+    soundPlay("sparks",0,                       
+        select(    
+            randint(1,6),
+            "ambient/energy/newspark01.wav",
+            "ambient/energy/newspark02.wav",
+            "ambient/energy/newspark05.wav",
+            "ambient/energy/newspark10.wav",
+            "ambient/energy/newspark08.wav",
+            "ambient/energy/newspark07.wav"            
+            ) 
+        )
+        
+    soundStop("sparks",0.45) 
+} 
+
+soundVolume("hum",(TM_Amps / 2500))
+
+if(changed(Hum) & Hum)
+{
+    soundPlay("hum",0,"_jazzlok/switches/hum.wav")
+    soundVolume("hum",(TM_Amps / 2500))
+}
+
+if(!Hum)
+{
+    soundStop("hum")
+}
+
+if(Sander)
+{
+    Sander_B = (10 - (Transition * 2)) - (Speed / 10)
+    
+    if(Sander_B < 1)
+    {
+        Sander_B = 1
+    }
+}
+else
+{
+    Sander_B = 1
+}
+
+
+VelL = Bogie:velL():y()/-4.25    
+
+Roll+=VelL
+    
+holoAng(2,Bogie:toWorld(ang(0,0,Roll)))
+holoAng(3,Bogie:toWorld(ang(0,0,Roll)))
+    
+Sander_C = Sander_C + ( Sander_B - Sander_C ) /  max( 100, 0 )  
+
+TM_Amps = round(Traction_Motor_Current)   
+
+
+
+if(dupefinished())
+{
+    reset()
+}
+
+RadioCmd = owner():lastSaid():explode(" ")
+
+runOnChat(1)
+if(chatClk(owner()))
+{
+    if(RadioCmd[1,string]=="/fixit")
+    {
+        hideChat(1)
+        RC = 1    
+        print("JAZZLOK: Locomotive Reset") 
+        reset()
+    }
+}

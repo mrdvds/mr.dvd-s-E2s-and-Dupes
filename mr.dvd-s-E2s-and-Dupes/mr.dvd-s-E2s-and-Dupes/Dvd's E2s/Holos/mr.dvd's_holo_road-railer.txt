@@ -1,0 +1,67 @@
+@name mr.dvd's holo road-railer
+@inputs 
+@outputs 
+@persist A
+@trigger 
+@model models/props_wasteland/cargo_container01.mdl
+E = entity()
+ 
+
+
+
+
+    A = 1
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,"models/magtrains/intermodal/trailer_53.mdl")
+    holoScale(A,vec(1,1,1))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(0,0,-99)))
+    holoColor(A,vec(255))
+    holoMaterial(A,"")
+
+Logo = "gevoman/logos/misc/triplecrownservice" #Put Logo path between the quotes here
+Color = vec(255) #Color of Logo
+Transparency = 255 #Changes transparency  of Logo (255 is Max, 0 is invisible)
+Ang = ang(90,0,0) #Adjusts Angle of Holo (X,Y,Z respectively)
+Pos = vec(49,-250,20) #Position of holo (X,Y,Z respectively)
+Scale = vec(7)
+
+
+if(first()|dupefinished()){
+    
+A=0
+holoCreate(A)
+holoParent(A, entity())
+holoModel(A, "plane")
+holoPos(A,entity():toWorld(Pos)) 
+holoAng(A, entity():toWorld(Ang))
+holoScale(A,Scale)
+holoMaterial(A,Logo)
+holoColor(A,Color)
+holoAlpha(A,Transparency)
+
+}
+
+Logo = "gevoman/logos/misc/triplecrownservice" #Put Logo path between the quotes here
+Color = vec(255) #Color of Logo
+Transparency = 255 #Changes transparency  of Logo (255 is Max, 0 is invisible)
+Ang = ang(90,-900,0) #Adjusts Angle of Holo (X,Y,Z respectively)
+Pos = vec(-49,-250,20) #Position of holo (X,Y,Z respectively)
+Scale = vec(7)
+
+
+if(first()|dupefinished()){
+    
+A=2
+holoCreate(A)
+holoParent(A, entity())
+holoModel(A, "plane")
+holoPos(A,entity():toWorld(Pos)) 
+holoAng(A, entity():toWorld(Ang))
+holoScale(A,Scale)
+holoMaterial(A,Logo)
+holoColor(A,Color)
+holoAlpha(A,Transparency)
+
+}

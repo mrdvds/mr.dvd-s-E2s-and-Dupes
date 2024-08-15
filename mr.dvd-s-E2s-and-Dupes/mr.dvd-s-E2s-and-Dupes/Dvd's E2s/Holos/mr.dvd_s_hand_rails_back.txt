@@ -1,0 +1,65 @@
+@name mr.dvd's hand rails back
+@inputs 
+@outputs 
+@persist 
+@trigger 
+@model models/gsgtrainprops/parts/grabs_n_ladders/grab_iron.mdl
+E = entity()
+ 
+
+
+
+
+    A = 1
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,"models/gsgtrainprops/parts/grabs_n_ladders/grab_iron.mdl")
+    holoScale(A,vec(1,1,1))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(0,0,0)))
+    holoColor(A,vec(255))
+
+    A = 2
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,"models/gsgtrainprops/parts/grabs_n_ladders/grab_iron.mdl")
+    holoScale(A,vec(1,1,1))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(0,0,20)))
+    holoColor(A,vec(255))
+
+    A = 3
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,"models/gsgtrainprops/parts/grabs_n_ladders/grab_iron.mdl")
+    holoScale(A,vec(1,1,1))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(0,0,37)))
+    holoColor(A,vec(255))
+
+    A = 4
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,"models/gsgtrainprops/parts/grabs_n_ladders/grab_iron.mdl")
+    holoScale(A,vec(1,1,1))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(0,0,53)))
+    holoColor(A,vec(255))
+
+    A = 5
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,"models/gsgtrainprops/parts/grabs_n_ladders/grab_iron.mdl")
+    holoScale(A,vec(1,1,1))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(0,0,65)))
+    holoColor(A,vec(255))
+
+    A = 6
+    holoCreate(A)
+    holoParent(A,E)
+    holoModel(A,"models/gsgtrainprops/parts/grabs_n_ladders/grab_iron.mdl")
+    holoScale(A,vec(1,1,1))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoPos(A,E:toWorld(vec(0,0,91)))
+    holoColor(A,vec(255))

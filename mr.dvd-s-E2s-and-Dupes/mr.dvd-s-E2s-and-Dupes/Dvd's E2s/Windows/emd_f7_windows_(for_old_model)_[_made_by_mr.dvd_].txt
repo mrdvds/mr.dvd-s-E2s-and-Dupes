@@ -1,0 +1,29 @@
+@name Emd F7 Windows (For Old Model) [ Made by Mr.dvd ]
+@inputs [Entity]:entity
+Entity:setAlpha(255) 
+    A = 1
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/sps_pack/windows/f7a_windowrounders.mdl")
+    holoColor(A,vec(255)) #Change this to color the window rounders.
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0))) 
+
+    A = 2
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/sps_pack/windows/f7a_windows.mdl")
+    holoAlpha(A, 58 )
+    holoColor(A,vec(255))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0))) 
+
+ A = 3
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/magtrainslocos/emd_f7a.mdl")
+    holoColor(A,vec(255)) #Change this to color the F7 Model.
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0))) 
+    holoBodygroup(A,1,0) #Change the BodyGroups Like how you wanted, add More holoBodygroup lines if you need to add more bodygroups.
+    holoEntity(A):setSubMaterial(0,"models/proppertextures/enamel_black") # add more lines if want
