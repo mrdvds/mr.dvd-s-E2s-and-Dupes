@@ -99,7 +99,7 @@ if(first()|dupefinished()){
     A = 4   
     holoCreate(A)
     holoModel(A,"models/magtrainslocos/trucks/blomberg_b_rsg.mdl")
-    holoPos(A,E2:toWorld(vec(0,0,45)))
+    holoPos(A,E2:toWorld(vec(0,0,0)))
     holoAng(A,E2:toWorld(ang(0,0,0)))
     holoParent(A,E2)
     holoEntity(A):setSubMaterial(8,"models/proppertextures/invisible")
@@ -114,11 +114,11 @@ if(first()|dupefinished()){
     holoBodygroup(A,12,CastingType)
     
     A=5
-    holoCreate(A,E2:toWorld(vec(0,55,20+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,90,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoCreate(A,E2:toWorld(vec(0,55,-26+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,90,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
     holoParent(A,E2)
     
     A=6
-    holoCreate(A,E2:toWorld(vec(0,-55,20+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,90,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoCreate(A,E2:toWorld(vec(0,-55,-26+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,90,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
     holoParent(A,E2)
     
     #Bearing holo stuff for the front and back trucks.
@@ -192,7 +192,7 @@ if(first()|dupefinished()){
     A=13
     holoCreate(A)
     holoModel(A,"models/wam98_trainparts/wheel_bearings/timken/timken_ap2.mdl")
-    holoPos(A,E2:toWorld(vec(43,54,19)))
+    holoPos(A,E2:toWorld(vec(43,54,-27)))
     holoAng(A,E2:toWorld(ang(0,0,0)))
     holoScale(A,vec(1.5,1.5,1.5))
     holoParent(A,E2)
@@ -203,7 +203,7 @@ if(first()|dupefinished()){
     A=14
     holoCreate(A)
     holoModel(A,"models/wam98_trainparts/wheel_bearings/timken/timken_ap2.mdl")
-    holoPos(A,E2:toWorld(vec(43,-54,19)))
+    holoPos(A,E2:toWorld(vec(43,-54,-27)))
     holoAng(A,E2:toWorld(ang(0,0,0)))
     holoScale(A,vec(1.5,1.5,1.5))
     holoParent(A,E2)
