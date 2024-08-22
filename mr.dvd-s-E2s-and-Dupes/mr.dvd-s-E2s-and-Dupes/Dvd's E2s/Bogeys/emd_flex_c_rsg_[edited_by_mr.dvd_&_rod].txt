@@ -1,0 +1,78 @@
+@name EMD Flex C Rsg [Edited By Mr.Dvd & Rod]
+@inputs FrontTruck:entity RearTruck:entity 
+@persist VelL Color:vector Truckframe:string VelL2 Speed2
+if(first()|dupefinished()){
+#######[Credits]##########    
+# Mr.DVD   
+# HongKong
+# Rod
+#cream made this shit idk     
+#[ Note; the color for what ever reason does not work. Don't ask me why but it really doesn't. Also, you may have to mount the truck 1 unit below the truck mounting base if the entire carbody is
+   in the track.
+]# 
+    Color = vec(50)  
+    Truckframe = "models/proppertextures/enamel_black"
+
+
+#-------------------------Wheels for the Front and Back Trucks below-------------------------------    
+
+
+
+#-----------------------------Front Truck---------------------------------------    
+    A=3
+    holoCreate(A)
+    holoModel(A,"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoPos(A,FrontTruck:toWorld(vec(-81.5,0,-24.5)))
+    holoParent(A,FrontTruck)
+    
+    A=4
+    holoCreate(A)
+    holoModel(A,"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoPos(A,FrontTruck:toWorld(vec(0,0,-24.5)))
+    holoParent(A,FrontTruck)
+    
+     A=5
+    holoCreate(A)
+    holoModel(A,"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoPos(A,FrontTruck:toWorld(vec(81.5,0,-24.5)))
+    holoParent(A,FrontTruck)
+#-------------------------------Rear Truck-------------------------------------    
+    A=6
+    holoCreate(A)
+    holoModel(A,"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoPos(A,RearTruck:toWorld(vec(-81.5,0,-24.5)))
+    holoParent(A,RearTruck)
+    
+    A=7
+    holoCreate(A)
+    holoModel(A,"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoPos(A,RearTruck:toWorld(vec(0,0,-24.5)))
+    holoParent(A,RearTruck)
+    
+    A=8
+    holoCreate(A)
+    holoModel(A,"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoPos(A,RearTruck:toWorld(vec(81.5,0,-24.5)))
+    holoParent(A,RearTruck)
+
+}
+
+interval(100)
+
+
+Speed = FrontTruck:velL():x()/-4.25
+VelL += Speed
+
+holoAng(3,FrontTruck:toWorld(ang(0,90,-VelL)))
+holoAng(4,FrontTruck:toWorld(ang(0,90,-VelL)))
+holoAng(5,FrontTruck:toWorld(ang(0,90,-VelL)))
+
+
+Speed2 = RearTruck:velL():x()/-4.25
+VelL2 += Speed
+
+holoAng(6,RearTruck:toWorld(ang(0,90,VelL2)))
+holoAng(7,RearTruck:toWorld(ang(0,90,VelL2)))
+holoAng(8,RearTruck:toWorld(ang(0,90,VelL2)))
+
+#End of code.

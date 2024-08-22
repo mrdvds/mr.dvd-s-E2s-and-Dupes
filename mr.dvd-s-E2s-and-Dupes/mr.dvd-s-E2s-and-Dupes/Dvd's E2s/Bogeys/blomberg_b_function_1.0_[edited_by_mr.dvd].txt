@@ -1,0 +1,235 @@
+@name Blomberg B Function 1.0 RSG [Edited By Mr.Dvd]
+@inputs FrontTruck:entity RearTruck:entity
+@outputs 
+@persist Angle1 Angle2 Wheels Bearings Truckframe:string E1:entity E2:entity Speed2 TMChange CastingType TruckType TMMat:string Bearings2
+@trigger none
+if(first()|dupefinished()){
+#cream made this shit idk
+#mr.dvd
+#[
+    Note; This has 2 bearing configurations because for whatever reason 2 of them have 8 bodygroups while the other 2 have 3 of them.
+          So it may be a little complicated..
+	
+	Quick note; This was made for the hypersliders (Made by RodrigosMOD) for stabilization. DO NOT DM ME SAYING "kArIm yOu dId iT aLl wRonG!1111!!!!" IF YOU SKIP THIS.
+		    I will realease the actual one soon.	
+]#    
+  
+    Truckframe = "models/proppertextures/enamel_black" #What texture do you want your truck frame(s) to be
+    
+    TruckType = 0 #What do you want your truck model(s) to be?
+#   0 - Blomberg M, default normal
+#   1 - Blomberg M, EMD GP60
+#   2 - Blomberg M, GMD F40PH-2
+
+    TMMat = "models/proppertextures/enamal_darkgray" #What texture do you want your Traction Motors to be?
+    
+    CastingType = 0 #What Casting type do you want for your truck(s)? (Note; The Dofasco ones add some things to the truck. Not sure why, but it is what it is.)
+#   0 - LFM
+#   1 - Rockwell Early
+#   2 - Rockwell Early M
+#   3 - Rockwell Mid
+#   4 - Rockwell Mid M
+#   5 - Rockwell Late
+#   6 - GSC 
+#   7 - Dofasco Early
+#   8 - Dofasco Late
+#   9 - Dofasco Late M
+    
+    Bearings = 0 #What do you want your bearings to be?
+#   0 - Hyatt Bearings
+#   1 - Hyatt Bearings /w speed recorder
+#   2 - Timken Bearings 
+#   3 - Timken Bearings /w speed recorder
+#   4 - Timken refit Bearings
+#   5 - Timken refit Bearings /w speed recorder
+#   6 - EMD Combo Bearings, these bearings look ok but... Werid at the same time.
+#   7 - EMD Combo Bearings /w speed recorder
+#   8 - EMD Normal Bearings
+
+    Bearings2 = 0 #What do you want your 2 other bearings to be?
+#   0 - Hyatt Bearings
+#   1 - Timken Bearings
+#   2 - Timken Refit Bearings
+
+
+
+
+#########################################################DO NOT GO PAST THIS LINE UNLESS YOU KNOW WHAT YOUR DOING!!###########################################################################
+
+    
+
+    E1=FrontTruck
+    E1:propPhysicalMaterial("gmod_ice")
+    noCollideAll(E1,0)
+    E1:setAlpha(0)
+    E1:propShadow(0)
+    
+    E2=RearTruck
+    E2:propPhysicalMaterial("gmod_ice")
+    noCollideAll(E2,0)
+    E2:setAlpha(0)
+    E2:propShadow(0)
+    
+    A = 1   
+    holoCreate(A)
+    holoModel(A,"models/magtrainslocos/trucks/blomberg_b_rsg.mdl")
+    holoPos(A,E1:toWorld(vec(0,0,0)))
+    holoAng(A,E1:toWorld(ang(0,0,0)))
+    holoParent(A,E1)
+    holoEntity(A):setSubMaterial(8,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(9,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(10,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(2,Truckframe)
+    holoEntity(A):setSubMaterial(1,Truckframe)
+    holoEntity(A):setSubMaterial(11,TMMat)
+    holoBodygroup(A,1,Bearings)
+    holoBodygroup(A,2,Bearings2)
+    holoBodygroup(A,3,Bearings)
+    holoBodygroup(A,4,Bearings2)
+    holoBodygroup(A,12,CastingType)
+    
+    A=2
+    holoCreate(A,E1:toWorld(vec(0,55,-26+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,0,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")    
+    holoParent(A,E1)
+    
+    A=3
+    holoCreate(A,E1:toWorld(vec(0,-55,-26+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,0,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoParent(A,E1)
+
+    A = 4   
+    holoCreate(A)
+    holoModel(A,"models/magtrainslocos/trucks/blomberg_b_rsg.mdl")
+    holoPos(A,E2:toWorld(vec(0,0,45)))
+    holoAng(A,E2:toWorld(ang(0,0,0)))
+    holoParent(A,E2)
+    holoEntity(A):setSubMaterial(8,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(9,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(10,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(2,Truckframe)
+    holoEntity(A):setSubMaterial(1,Truckframe)
+    holoBodygroup(A,1,Bearings)
+    holoBodygroup(A,2,Bearings2)
+    holoBodygroup(A,3,Bearings)
+    holoBodygroup(A,4,Bearings2)
+    holoBodygroup(A,12,CastingType)
+    
+    A=5
+    holoCreate(A,E2:toWorld(vec(0,55,20+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,90,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoParent(A,E2)
+    
+    A=6
+    holoCreate(A,E2:toWorld(vec(0,-55,20+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,90,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoParent(A,E2)
+    
+    #Bearing holo stuff for the front and back trucks.
+    
+    A=7
+    holoCreate(A)
+    holoModel(A,"models/wam98_trainparts/wheel_bearings/timken/timken_ap2.mdl")
+    holoPos(A,E1:toWorld(vec(-43,54,-27)))
+    holoAng(A,E1:toWorld(ang(0,180,0)))
+    holoScale(A,vec(1.5,1.5,1.5))
+    holoParent(A,E1)
+    holoEntity(A):setSubMaterial(2,Truckframe)
+    holoEntity(A):setSubMaterial(3,Truckframe)
+    holoEntity(A):setSubMaterial(4,Truckframe)
+    
+    A=8
+    holoCreate(A)
+    holoModel(A,"models/wam98_trainparts/wheel_bearings/timken/timken_ap2.mdl")
+    holoPos(A,E1:toWorld(vec(-43,-54,-27)))
+    holoAng(A,E1:toWorld(ang(0,180,0)))
+    holoScale(A,vec(1.5,1.5,1.5))
+    holoParent(A,E1)
+    holoEntity(A):setSubMaterial(2,Truckframe)
+    holoEntity(A):setSubMaterial(3,Truckframe)
+    holoEntity(A):setSubMaterial(4,Truckframe)
+    
+    A=9
+    holoCreate(A)
+    holoModel(A,"models/wam98_trainparts/wheel_bearings/timken/timken_ap2.mdl")
+    holoPos(A,E1:toWorld(vec(43,54,-27)))
+    holoAng(A,E1:toWorld(ang(0,0,0)))
+    holoScale(A,vec(1.5,1.5,1.5))
+    holoParent(A,E1)
+    holoEntity(A):setSubMaterial(2,Truckframe)
+    holoEntity(A):setSubMaterial(3,Truckframe)
+    holoEntity(A):setSubMaterial(4,Truckframe)
+    
+    A=10
+    holoCreate(A)
+    holoModel(A,"models/wam98_trainparts/wheel_bearings/timken/timken_ap2.mdl")
+    holoPos(A,E1:toWorld(vec(43,-54,-27)))
+    holoAng(A,E1:toWorld(ang(0,180,0)))
+    holoScale(A,vec(1.5,1.5,1.5))
+    holoParent(A,E1)
+    holoEntity(A):setSubMaterial(2,Truckframe)
+    holoEntity(A):setSubMaterial(3,Truckframe)
+    holoEntity(A):setSubMaterial(4,Truckframe)
+    
+    A=11
+    holoCreate(A)
+    holoModel(A,"models/wam98_trainparts/wheel_bearings/timken/timken_ap2.mdl")
+    holoPos(A,E2:toWorld(vec(-43,54,-27)))
+    holoAng(A,E2:toWorld(ang(0,180,0)))
+    holoScale(A,vec(1.5,1.5,1.5))
+    holoParent(A,E2)
+    holoEntity(A):setSubMaterial(2,Truckframe)
+    holoEntity(A):setSubMaterial(3,Truckframe)
+    holoEntity(A):setSubMaterial(4,Truckframe)
+    
+    A=12
+    holoCreate(A)
+    holoModel(A,"models/wam98_trainparts/wheel_bearings/timken/timken_ap2.mdl")
+    holoPos(A,E2:toWorld(vec(-43,-54,-27)))
+    holoAng(A,E2:toWorld(ang(0,180,0)))
+    holoScale(A,vec(1.5,1.5,1.5))
+    holoParent(A,E2)
+    holoEntity(A):setSubMaterial(2,Truckframe)
+    holoEntity(A):setSubMaterial(3,Truckframe)
+    holoEntity(A):setSubMaterial(4,Truckframe)
+    
+    A=13
+    holoCreate(A)
+    holoModel(A,"models/wam98_trainparts/wheel_bearings/timken/timken_ap2.mdl")
+    holoPos(A,E2:toWorld(vec(43,54,19)))
+    holoAng(A,E2:toWorld(ang(0,0,0)))
+    holoScale(A,vec(1.5,1.5,1.5))
+    holoParent(A,E2)
+    holoEntity(A):setSubMaterial(2,Truckframe)
+    holoEntity(A):setSubMaterial(3,Truckframe)
+    holoEntity(A):setSubMaterial(4,Truckframe)
+    
+    A=14
+    holoCreate(A)
+    holoModel(A,"models/wam98_trainparts/wheel_bearings/timken/timken_ap2.mdl")
+    holoPos(A,E2:toWorld(vec(43,-54,19)))
+    holoAng(A,E2:toWorld(ang(0,0,0)))
+    holoScale(A,vec(1.5,1.5,1.5))
+    holoParent(A,E2)
+    holoEntity(A):setSubMaterial(2,Truckframe)
+    holoEntity(A):setSubMaterial(3,Truckframe)
+    holoEntity(A):setSubMaterial(4,Truckframe)
+}
+
+interval(100)
+#                    \/ YOUR DIRECTION11111!!!1111 (x y or z ofc)
+Speed = E1:velL():y()/-4.25
+Angle1+=Speed
+
+holoAng(2,E1:toWorld(ang(0,0,Angle1)))
+holoAng(3,E1:toWorld(ang(0,0,Angle1)))
+holoAng(7,E1:toWorld(ang(0,180,-Angle1)))
+holoAng(8,E1:toWorld(ang(0,180,-Angle1)))
+holoAng(9,E1:toWorld(ang(0,0,Angle1)))
+holoAng(10,E1:toWorld(ang(0,0,Angle1)))
+
+Speed2 = E2:velL():y()/-4.25
+Angle2+=Speed2
+
+holoAng(5,E2:toWorld(ang(0,0,Angle2)))
+holoAng(6,E2:toWorld(ang(0,0,Angle2)))
+holoAng(11,E2:toWorld(ang(0,180,-Angle2)))
+holoAng(12,E2:toWorld(ang(0,180,-Angle2)))
+holoAng(13,E2:toWorld(ang(0,0,Angle2)))
+holoAng(14,E2:toWorld(ang(0,0,Angle2)))

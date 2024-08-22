@@ -1,0 +1,118 @@
+@name Dofasco HI-AD V1.0 (RSG) (Dvd Edit)
+@inputs FrontTruck:entity RearTruck:entity
+@outputs 
+@persist Angle1 Angle2 Wheels Bearings Truckframe:string E1:entity E2:entity Speed2 TMChange LeafSpringType
+@trigger none
+if(first()|dupefinished()){
+    #karim made this shit idk
+    Truckframe = "models/proppertextures/enamel_black" #What texture do you want the frame to be?
+    
+    TMChange = 0 #Do you want your traction motors to be different or stay normal?
+    
+    LeafSpringType = 0 #Do you want a different leaf spring or the normal one? 0 = Normal 1 = Different (Not much difference but added it because why not lol)
+    
+    Bearings = 4 #[ Note DVD; I covered a bearing so it's 3 bearings instead of 4. Just like the way you wanted :) You can change though which bearing you wanted covered to your perferences,
+                   go to line 47. That's the start of the bodygroups for the bearings and whatnot. Same thing with the back truck line 72 is the start. Have fun!
+]#
+                
+#   0 - Timken open FL Bearings
+#   1 - Timken open FL speed recorder Bearings, bearings are not covered.
+#   2 - Timken Covered FL Bearings
+#   3 - Timken Covered FL/w speed recorder bearings
+#   4 - SKF Covered FL Bearings, werid bearings i tell you. But will also the bearings will clip through the covered ones. Nothing i can do to fix it
+#   5 - SKF Covered FL Bearing /w speed recorder
+#   6 - Jorunal Bearings
+#   7 - Jorunal Bearings /w speed recorder
+    E1=FrontTruck
+    E1:propPhysicalMaterial("gmod_ice")
+    noCollideAll(E1,0)
+    E1:setAlpha(0)
+    E1:propShadow(0)
+    
+    E2=RearTruck
+    E2:propPhysicalMaterial("gmod_ice")
+    noCollideAll(E2,0)
+    E2:setAlpha(0)
+    E2:propShadow(0)
+    
+    A = 1   
+    holoCreate(A)
+    holoModel(A,"models/gsgtrainprops/trains/propper/trucks/dofasco_hi-ad.mdl")
+    holoPos(A,E1:toWorld(vec(0,0,0)))
+    holoAng(A,E1:toWorld(ang(0,0,0)))
+    holoParent(A,E1)
+    holoEntity(A):setSubMaterial(7,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(8,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(5,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(0,Truckframe)
+    holoBodygroup(A,2,LeafSpringType)
+    holoBodygroup(A,0,Bearings)
+    holoBodygroup(A,0,Bearings)
+    holoBodygroup(A,0,Bearings)
+    holoBodygroup(A,0,0)
+    holoBodygroup(A,10,TMChange)
+    
+    A=2
+    holoCreate(A,E1:toWorld(vec(0,-48,-20+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,0,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")    
+    holoParent(A,E1)
+    
+    A=3
+    holoCreate(A,E1:toWorld(vec(0,20,-20+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,0,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoParent(A,E1)
+    
+      A=7
+    holoCreate(A,E1:toWorld(vec(0,88,-20+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,0,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoParent(A,E1)
+
+    A = 4   
+    holoCreate(A)
+    holoModel(A,"models/gsgtrainprops/trains/propper/trucks/dofasco_hi-ad.mdl")
+    holoPos(A,E2:toWorld(vec(0,0,0)))
+    holoAng(A,E2:toWorld(ang(0,0,0)))
+    holoParent(A,E2)
+    holoEntity(A):setSubMaterial(7,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(8,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(5,"models/proppertextures/invisible")
+    holoEntity(A):setSubMaterial(0,Truckframe)
+    holoBodygroup(A,2,LeafSpringType)
+    holoBodygroup(A,0,Bearings)
+    holoBodygroup(A,0,Bearings)
+    holoBodygroup(A,0,Bearings)
+    holoBodygroup(A,0,0)
+    holoBodygroup(A,10,TMChange)
+    
+     A=8
+    holoCreate(A,E2:toWorld(vec(0,-48,-20+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,0,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")    
+    holoParent(A,E2)
+    
+    A=9
+    holoCreate(A,E2:toWorld(vec(0,21,-20+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,0,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoParent(A,E2)
+    
+      A=10
+    holoCreate(A,E2:toWorld(vec(0,88,-20+Wheels)),Wheels ? vec(1,42/40,42/40) : vec(1,1,1),E1:toWorld(ang(0,0,0)),vec(255),"models/anytrains/props/locoparts/axle_40_rsg.mdl")
+    holoParent(A,E2)
+
+}
+
+interval(100)
+#                    \/ YOUR DIRECTION11111!!!1111 (x y or z ofc)
+Speed = E1:velL():y()/-4.25
+Angle1+=Speed
+
+holoAng(2,E1:toWorld(ang(0,0,Angle1)))
+holoAng(3,E1:toWorld(ang(0,0,Angle1)))
+holoAng(7,E1:toWorld(ang(0,180,-Angle1)))
+holoAng(8,E1:toWorld(ang(0,180,-Angle1)))
+holoAng(9,E1:toWorld(ang(0,0,Angle1)))
+holoAng(10,E1:toWorld(ang(0,0,Angle1)))
+
+Speed2 = E2:velL():y()/-4.25
+Angle2+=Speed2
+
+holoAng(5,E2:toWorld(ang(0,0,Angle2)))
+holoAng(6,E2:toWorld(ang(0,0,Angle2)))
+holoAng(11,E2:toWorld(ang(0,180,-Angle2)))
+holoAng(12,E2:toWorld(ang(0,180,-Angle2)))
+holoAng(13,E2:toWorld(ang(0,0,Angle2)))
+holoAng(14,E2:toWorld(ang(0,0,Angle2)))
