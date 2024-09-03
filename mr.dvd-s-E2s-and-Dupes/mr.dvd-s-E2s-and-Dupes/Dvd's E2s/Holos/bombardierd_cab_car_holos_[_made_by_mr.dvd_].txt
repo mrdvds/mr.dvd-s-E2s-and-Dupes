@@ -1,0 +1,31 @@
+@name Bombardierd Cab Car Holos [ Made by Mr.dvd ]
+@inputs [Entity]:entity
+Entity:setAlpha(0) 
+    A = 1
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/az2933/rollingstock/passenger/bombardier_cabcar_base.mdl")
+    holoColor(A,vec(255)) #Change this to color the bombardierd cab car.
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0))) 
+    holoBodygroup(A,0,0) #Change the BodyGroups Like how you wanted, add More holoBodygroup lines if you need to add more bodygroups.
+    holoEntity(A):setSubMaterial(0,"") # add more lines if want.
+
+    A = 2
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/az2933/rollingstock/passenger/bombardier_cabcar_details.mdl")
+    holoColor(A,vec(255)) #Change this to color the bombardierd cab car.
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0))) 
+    holoBodygroup(A,0,0) #Change the BodyGroups Like how you wanted, add More holoBodygroup lines if you need to add more bodygroups.
+    holoEntity(A):setSubMaterial(0,"") # add more lines if want.
+    A = 3
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/az2933/rollingstock/passenger/bombardier_cabcar_windows.mdl")
+    holoColor(A,vec(255)) #Change this to color the bombardierd cab car.
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0))) 
+    holoBodygroup(A,0,0) #Change the BodyGroups Like how you wanted, add More holoBodygroup lines if you need to add more bodygroups.
+    holoEntity(A):setSubMaterial(0,"") # add more lines if want.
