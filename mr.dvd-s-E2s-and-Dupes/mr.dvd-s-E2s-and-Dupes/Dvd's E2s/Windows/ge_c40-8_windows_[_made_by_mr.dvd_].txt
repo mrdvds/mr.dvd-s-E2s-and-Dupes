@@ -1,0 +1,94 @@
+@name Ge C40-8 Windows [ Made by mr.dvd ]
+@model models/sprops/cuboids/height48/size_2/cube_96x192x48.mdl
+#made / edited mr.dvd
+
+#help to make this code (Prop to Holo)
+
+#how to use: make the big box color 0,0,0 then move the holo to the model then try to fit the windows in
+
+if( first() | dupefinished() ){
+
+    HPE = entity()
+
+    HoloID = 1
+
+    # Lua EntIndex: 2126
+    holoCreate( HoloID, HPE:toWorld( vec( -315.19561767578, 48.298316955566, 93.973388671875 ) ), vec( 1 ), HPE:toWorld( ang( 89.994491577148, 179.99450683594, 0 ) ), vec( 255, 255, 255 ), "models/sprops/rectangles_superthin/size_3/rect_24x36.mdl" )
+ holoAlpha( HoloID, 58 )
+        holoEntity( HoloID):setSubMaterial(1,"models/proppertextures/acrylic")
+    holoColor( HoloID,vec(255,255,255))
+    holoSkin( HoloID, 0 )
+    holoRenderFX( HoloID, 0 )
+    holoParent( HoloID, HPE )
+    
+    HoloID = HoloID + 1
+    
+    # Lua EntIndex: 2130
+    holoCreate( HoloID, HPE:toWorld( vec( -315.17846679688, -46.35848236084, 99.495529174805 ) ), vec( 1 ), HPE:toWorld( ang( 89.994491577148, 180, 0 ) ), vec( 255, 255, 255 ), "models/sprops/rectangles_superthin/size_3/rect_24x36.mdl" )
+ holoAlpha( HoloID, 58 )
+        holoEntity( HoloID):setSubMaterial(1,"models/proppertextures/acrylic")
+    holoColor( HoloID,vec(255,255,255))
+    holoSkin( HoloID, 0 )
+    holoRenderFX( HoloID, 0 )
+    holoParent( HoloID, HPE )
+    
+    HoloID = HoloID + 1
+    
+    # Lua EntIndex: 2205
+    holoCreate( HoloID, HPE:toWorld( vec( -273.6282043457, 58.528614044189, 91.63062286377 ) ), vec( 1 ), HPE:toWorld( ang( -0.000001056294, 0.010986329988, -89.994499206543 ) ), vec( 255, 255, 255 ), "models/sprops/rectangles_superthin/size_3_5/rect_30x36.mdl" )
+ holoAlpha( HoloID, 58 )
+        holoEntity( HoloID):setSubMaterial(1,"models/proppertextures/acrylic")
+                        holoScale(HoloID,vec(1,1,0.0))
+    holoColor( HoloID,vec(255,255,255))
+    holoSkin( HoloID, 0 )
+    holoRenderFX( HoloID, 0 )
+    holoParent( HoloID, HPE )
+    
+    HoloID = HoloID + 1
+    
+    # Lua EntIndex: 2127
+    holoCreate( HoloID, HPE:toWorld( vec( -273.74673461914, -58.37756729126, 91.46312713623 ) ), vec( 1 ), HPE:toWorld( ang( -0.000004753505, 179.95056152344, -90.005516052246 ) ), vec( 255, 255, 255 ), "models/sprops/rectangles_superthin/size_3_5/rect_30x36.mdl" )
+ holoAlpha( HoloID, 58 )
+        holoEntity( HoloID):setSubMaterial(1,"models/proppertextures/acrylic")
+    holoColor( HoloID,vec(255,255,255))
+     holoScale(HoloID,vec(1,1,0.0))
+    holoSkin( HoloID, 0 )
+    holoRenderFX( HoloID, 0 )
+    holoParent( HoloID, HPE )
+    
+    HoloID = HoloID + 1
+    
+    # Lua EntIndex: 2128
+    holoCreate( HoloID, HPE:toWorld( vec( -231.99182128906, -48.116611480713, 94.30786895752 ) ), vec( 1 ), HPE:toWorld( ang( 89.994491577148, -0.000004817485, 0 ) ), vec( 255, 255, 255 ), "models/sprops/rectangles_superthin/size_3/rect_24x36.mdl" )
+ holoAlpha( HoloID, 58 )
+        holoEntity( HoloID):setSubMaterial(1,"models/proppertextures/acrylic")
+    holoColor( HoloID,vec(255,255,255))
+    holoSkin( HoloID, 0 )
+    holoRenderFX( HoloID, 0 )
+    holoParent( HoloID, HPE )
+    
+    HoloID = HoloID + 1
+    
+    # Lua EntIndex: 2204
+    holoCreate( HoloID, HPE:toWorld( vec( -232.00807189941, 48.351852416992, 97.44213104248 ) ), vec( 1 ), HPE:toWorld( ang( 89.994491577148, -0.15381065011, 0 ) ), vec( 255, 255, 255 ), "models/sprops/rectangles_superthin/size_2_5/rect_18x30.mdl" )
+ holoAlpha( HoloID, 58 )
+        holoEntity( HoloID):setSubMaterial(1,"models/proppertextures/acrylic")
+    holoColor( HoloID,vec(255,255,255))
+    holoSkin( HoloID, 0 )
+    holoRenderFX( HoloID, 0 )
+    holoParent( HoloID, HPE )
+    
+    HoloID = HoloID + 1
+    
+    # Lua EntIndex: 2248
+    holoCreate( HoloID, HPE:toWorld( vec( -315.34378051758, -0.046270091087, 103.34373474121 ) ), vec( 1 ), HPE:toWorld( ang( -0.005508774891, 90.01099395752, -90.000007629395 ) ), vec( 255, 255, 255 ), "models/sprops/rectangles_superthin/size_3/rect_24x66.mdl" )
+ holoAlpha( HoloID, 58 )
+        holoEntity( HoloID):setSubMaterial(1,"models/proppertextures/acrylic")
+    holoColor( HoloID,vec(255,255,255))
+    holoSkin( HoloID, 0 )
+    holoRenderFX( HoloID, 0 )
+    holoParent( HoloID, HPE )
+    
+    HoloID = HoloID + 1
+    
+} 
